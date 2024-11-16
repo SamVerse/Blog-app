@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head') %>
+        <title>Memoire</title>
+        <link rel="stylesheet" href="/stylesheet/blog.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body style="font-family: Lexend Deca, sans-serif;">
+    <%- include('partials/nav') %>
+        <div class="container mt-3 mb-3">
+            <div class="card">
+                <img src="<%= blog.coverImageURL %>" alt="<%= blog.title %>">
+                <div class="card-body">
+                        <h2>
+                            <%= blog.title %>
+                        </h2>
+                        
+                        <% if (user && user._id == blog.createdBy._id) { %> 
+                            <form action="/blog/delete/<%= blog._id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        <% } %>
+                    <pre>
+                        <%= blog.body %>
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3 mb-3">
+            <img class="profile" src=<%=blog.createdBy.profileImageURL %> width="60px" alt="">
+            <span style="color: antiquewhite; padding-left: 10px;">
+                <%= blog.createdBy.fullName %>
+            </span>
+        </div>
+        <div class="container mt-2 mb-3">
+            <h3 style="color: antiquewhite;">Comment (<%= comments.length %>)</h3>
+            <% if (locals.user) { %>
+                <form action="/blog/comment/<%= blog._id %>" method="post">
+                    <div class="mb-3">
+                        <input name="content" type="text" class="form-control" id="comment"
+                            placeholder="Enter your comment">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <% } else { %>
+                    <p style="color: rgb(245, 151, 29);">Please sign in to comment</p>
+                    <% } %>
+                        <div style="margin-top: 25px;"">
+                            <% comments.forEach(comment=> { %>
+                                <div>
+                                    <img class="profile" src=<%=blog.createdBy.profileImageURL %> width="30px" alt="">
+                                    <span style="color: antiquewhite; padding-left: 10px; font-size: 15px;">
+                                        <%= comment.createdBy.fullName %>
+                                    </span>
+                                    <pre style="color: rgb(255, 255, 255); margin-top: 5px;"><%= comment.content %></pre>
+                                </div>
+                                <% }) %>
+                        </div>
+
+        </div>
+        <%- include('partials/script') %>
+</body>
+
+</html>

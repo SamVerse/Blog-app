@@ -1,0 +1,49 @@
+body {
+    background-color: #240750;
+}
+
+nav {
+    background-color: #001F3F;
+}
+
+.card {
+    background-color: black;
+    width: 100%;
+}
+
+.card img{
+    text-align: center;
+    object-fit: cover;
+    max-width: 100%;
+    height: 500px;
+    margin: 0 auto;
+}
+
+
+.card-body{
+    position: relative;
+    z-index: 0;
+}
+
+.card-body button{
+    position: absolute;
+    top: 1%;
+    z-index: 1;
+    right: 2%;
+}
+
+.card-body h2 {
+    text-align: center;
+    color: #ae1a12;
+}
+.card-body pre {
+    text-wrap: wrap;
+    padding: 10px;
+    color: antiquewhite;
+    overflow: auto;
+}
+
+.profile {
+    border-radius: 100px;
+}
+
